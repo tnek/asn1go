@@ -139,8 +139,9 @@ func goifyName(name string) string {
 //
 // Feature support status:
 // - [.] AssignmentList
-//    - [ ] ValueAssignment
-//    - [x] TypeAssignment
+//   - [ ] ValueAssignment
+//   - [x] TypeAssignment
+//
 // - [ ] Imports
 func (ctx *moduleContext) generateDeclarations(module ModuleDefinition) []goast.Decl {
 	decls := make([]goast.Decl, 0)
@@ -163,6 +164,10 @@ func (ctx *moduleContext) generateDeclarations(module ModuleDefinition) []goast.
 func (ctx *moduleContext) generateTypeDecl(reference TypeReference, typeDescr Type) goast.Decl {
 	var isSet bool
 	typeBody := ctx.generateTypeBody(typeDescr, &isSet)
+	if typeBody == nil {
+		fmt.Printf("wtf: %v\n", reference)
+	}
+
 	spec := &goast.TypeSpec{
 		Name:   goast.NewIdent(goifyName(reference.Name())),
 		Type:   typeBody,
