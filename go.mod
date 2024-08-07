@@ -1,4 +1,4 @@
-module github.com/chemikadze/asn1go
+module github.com/tnek/asn1go
 
 go 1.16
 
